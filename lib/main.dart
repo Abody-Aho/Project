@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+<<<<<<< HEAD
 import 'package:flutterfire/addthings/addpage.dart';
+=======
+>>>>>>> origin/main
 import 'package:flutterfire/auth/loginPage.dart';
 import 'package:flutterfire/auth/singUpPage.dart';
 import 'package:flutterfire/screen/home_page.dart';
@@ -64,13 +67,21 @@ class _HomePage2State extends State<HomePage2> {
           )
       ),
       home: Scaffold(
+<<<<<<< HEAD
           body: (FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified) ?  const HomePage() : const LoginPage() ,
+=======
+          body: FirebaseAuth.instance.currentUser == null ? LoginPage() : HomePage()
+>>>>>>> origin/main
       ),
       routes: {
         "SingUp": (context) => SingUp(),
         "Login": (context) => LoginPage(),
+<<<<<<< HEAD
         "Home": (context) => HomePage(),
         "Add": (context) => AddPage(),
+=======
+        "Home": (context) => HomePage()
+>>>>>>> origin/main
       },
     );
   }

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+>>>>>>> origin/main
 import 'package:flutter/material.dart';
 
 
@@ -10,6 +13,7 @@ class Study extends StatefulWidget {
 }
 
 class _StudyState extends State<Study> {
+<<<<<<< HEAD
   User? user;
   final String allowedEmail = 'abdalwalysamer6@gmail.com';
   @override
@@ -29,6 +33,11 @@ class _StudyState extends State<Study> {
         },
         child: Icon(Icons.add),
       ) : null ,
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+>>>>>>> origin/main
      appBar: AppBar(title: Text("الدروس"),centerTitle: true,),
       body: Center(child: Text("Study here",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),),
     );

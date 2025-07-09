@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire/components/costomLogo.dart';
 import 'package:flutterfire/components/customBottom.dart';
 import 'package:flutterfire/components/textformfied.dart';
+<<<<<<< HEAD
 import 'package:google_sign_in/google_sign_in.dart';
+=======
+>>>>>>> origin/main
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController Email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+<<<<<<< HEAD
   Future signInWithGoogle() async {
 
     // Trigger the authentication flow
@@ -37,6 +41,8 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.of(context).pushNamedAndRemoveUntil("Home", (route) => false);
   }
 
+=======
+>>>>>>> origin/main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                   margin: const EdgeInsets.only(top: 10, bottom: 20),
                   alignment: Alignment.topRight,
                   child:
+<<<<<<< HEAD
                       InkWell(onTap: () async{
                         if(Email.text == ""){
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -114,6 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                         }
 
                       }, child: const Text("Forgot Password ?")),
+=======
+                      InkWell(onTap: () {}, child: const Text("Forgot Password ?")),
+>>>>>>> origin/main
                 ),
               ],
             ),
@@ -127,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                   email: Email.text,
                   password: password.text,
                 );
+<<<<<<< HEAD
                 if(credential.user!.emailVerified){
                   Navigator.of(context).pushReplacementNamed("Home");
                 }else{
@@ -150,6 +161,16 @@ class _LoginPageState extends State<LoginPage> {
                   const SnackBar(content: Text("يجب ملأ جميع الحقول")),
                 );
               }
+=======
+                Navigator.of(context).pushReplacementNamed("Home");
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  print('No user found for that email.');
+                } else if (e.code == 'wrong-password') {
+                  print('Wrong password provided for that user.');
+                }
+              }
+>>>>>>> origin/main
             },
           ),
           Container(
@@ -186,7 +207,13 @@ class _LoginPageState extends State<LoginPage> {
                   )),
               InkWell(
                   onTap: () {
+<<<<<<< HEAD
                     signInWithGoogle();
+=======
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("غير متوفر حاليا")),
+                    );
+>>>>>>> origin/main
                   },
                   child: Image.asset(
                     "images/google.jpg",
