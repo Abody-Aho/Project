@@ -9,7 +9,7 @@ class CustomBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
         height: 60,
-        margin: EdgeInsets.symmetric(horizontal: 30),
+        margin: const EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
             color: Colors.orange[400],
             borderRadius: BorderRadius.circular(50)),
@@ -17,7 +17,7 @@ class CustomBottom extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             "$title",
-            style: TextStyle(color: Colors.white, fontSize: 19),
+            style: const TextStyle(color: Colors.white, fontSize: 19),
           ),
         )
     );

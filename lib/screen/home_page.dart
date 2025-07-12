@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutterfire/screen/prayers.dart';
 //import 'package:dene/screen/quranPage.dart';
 import 'package:flutterfire/screen/quran_page.dart';
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: QuranPage(),
           ),
           const Center(
-            child: Settings(),
+            child: Settings1(),
           ),
         ],
       ),

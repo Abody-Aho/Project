@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:google_sign_in/google_sign_in.dart';
-=======
->>>>>>> origin/main
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class Settings1 extends StatelessWidget {
+  const Settings1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +15,9 @@ class Settings extends StatelessWidget {
       body: Center(
         child: ListTile(
           onTap: () async {
-<<<<<<< HEAD
+
             GoogleSignIn googleSignIn = GoogleSignIn();
             googleSignIn.disconnect();
-=======
->>>>>>> origin/main
             await FirebaseAuth.instance.signOut();
             Navigator.of(context).pushNamedAndRemoveUntil("Login", (route) => false);
           },

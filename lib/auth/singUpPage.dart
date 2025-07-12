@@ -153,7 +153,7 @@ class _SingUpState extends State<SingUp> {
                   'email': Email.text.trim(),
                   'phone': phoneNumber,
                 });
-<<<<<<< HEAD
+
                 var user = FirebaseAuth.instance.currentUser;
                 if (user != null) {
                   await user.sendEmailVerification();
@@ -166,10 +166,8 @@ class _SingUpState extends State<SingUp> {
                     SnackBar(content: Text("لم يتم تسجيل الدخول")),
                   );
                 }
-=======
-
                 Navigator.of(context).pushReplacementNamed("Home");
->>>>>>> origin/main
+
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
                   ScaffoldMessenger.of(context).showSnackBar(

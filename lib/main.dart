@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-<<<<<<< HEAD
 import 'package:flutterfire/addthings/addpage.dart';
-=======
->>>>>>> origin/main
 import 'package:flutterfire/auth/loginPage.dart';
 import 'package:flutterfire/auth/singUpPage.dart';
 import 'package:flutterfire/screen/home_page.dart';
@@ -28,7 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage2();
+    return const HomePage2();
   }
 }
 
@@ -42,9 +39,7 @@ class HomePage2 extends StatefulWidget {
 class _HomePage2State extends State<HomePage2> {
   @override
   void initState() {
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User? user) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         print('===============User is currently signed out!');
       } else {
@@ -53,35 +48,32 @@ class _HomePage2State extends State<HomePage2> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              backgroundColor: Colors.orange[400],
-              centerTitle: true,
-              titleTextStyle: TextStyle(
-                  fontFamily: "Rakkas",
-                  fontSize: 28,
-                  color: Colors.black)
-          )
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.orange[400],
+          centerTitle: true,
+          titleTextStyle: const TextStyle(
+            fontFamily: "Rakkas",
+            fontSize: 28,
+            color: Colors.black,
+          ),
+        ),
       ),
       home: Scaffold(
-<<<<<<< HEAD
-          body: (FirebaseAuth.instance.currentUser != null && FirebaseAuth.instance.currentUser!.emailVerified) ?  const HomePage() : const LoginPage() ,
-=======
-          body: FirebaseAuth.instance.currentUser == null ? LoginPage() : HomePage()
->>>>>>> origin/main
+        body: (FirebaseAuth.instance.currentUser != null &&
+            FirebaseAuth.instance.currentUser!.emailVerified)
+            ? const HomePage()
+            : const LoginPage(),
       ),
       routes: {
-        "SingUp": (context) => SingUp(),
-        "Login": (context) => LoginPage(),
-<<<<<<< HEAD
-        "Home": (context) => HomePage(),
-        "Add": (context) => AddPage(),
-=======
-        "Home": (context) => HomePage()
->>>>>>> origin/main
+        "SingUp": (context) => const SingUp(),
+        "Login": (context) => const LoginPage(),
+        "Home": (context) => const HomePage(),
+        "Add": (context) => const AddPage(),
       },
     );
   }

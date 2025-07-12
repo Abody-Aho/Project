@@ -26,17 +26,6 @@ class Prayers extends StatelessWidget {
                 child: ListView(
                   children: [
                     const SizedBox(height: 130),
-                    const Text(
-                      "﷽",
-                      style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 40),
-
                     buildIslamicCard(
                       context,
                       title: "أذكار المساء",
@@ -59,14 +48,6 @@ class Prayers extends StatelessWidget {
                       destination: const TsbehPage(),
                     ),
                   ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: Text(
-                  "اللهم اجعل هذا العمل خالصًا لوجهك الكريم",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],
