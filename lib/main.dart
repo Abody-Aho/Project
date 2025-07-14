@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutterfire/addthings/addpage.dart';
-import 'package:flutterfire/auth/loginPage.dart';
+import 'package:flutterfire/auth/loginpage.dart';
 import 'package:flutterfire/auth/singUpPage.dart';
 import 'package:flutterfire/screen/home_page.dart';
 import 'firebase_options.dart';

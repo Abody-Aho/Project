@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire/components/costomLogo.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController Email = TextEditingController();
   TextEditingController password = TextEditingController();
-
+  bool isloaiding = false;
   Future signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) return;
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: isloaiding ? (Center(child: CircularProgressIndicator(color: Colors.orangeAccent,),)) : ListView(
         children: [
           const SizedBox(height: 70),
           const LogoThem(),
@@ -64,20 +65,32 @@ class _LoginPageState extends State<LoginPage> {
                   child: InkWell(
                     onTap: () async {
                       if (Email.text == "") {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("أدخل البريد الالكتروني اولا")),
-                        );
+                        Flushbar(
+                          title: "خطأ",
+                          message: "أدخل البريد الالكتروني اولا",
+                          duration: Duration(seconds: 3),
+                          backgroundColor: Colors.orange,
+                          flushbarPosition: FlushbarPosition.BOTTOM,
+                        )..show(context);
                       } else {
                         try {
                           await FirebaseAuth.instance.sendPasswordResetEmail(email: Email.text);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("تم ارسال يرجاء التاكد من حسابك")),
-                          );
+                          Flushbar(
+                            title: "خطأ",
+                            message: "تم ارسال يرجاء التاكد من حسابك",
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.orange,
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                          )..show(context);
                         } catch (e) {
                           print(e);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("الحساب غير موجود اعد كتابتة بشكل صحيح واعد المحاوله")),
-                          );
+                          Flushbar(
+                            title: "خطأ",
+                            message: "الحساب غير موجود اعد كتابتة بشكل صحيح واعد المحاوله",
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.orange,
+                            flushbarPosition: FlushbarPosition.BOTTOM,
+                          )..show(context);
                         }
                       }
                     },
@@ -90,6 +103,21 @@ class _LoginPageState extends State<LoginPage> {
           CustomBottom(
             title: "Login",
             onPressed: () async {
+              if (Email.text.isEmpty || password.text.isEmpty) {
+                Flushbar(
+                  title: "خطأ",
+                  message: "يجب ملأ جميع الحقول",
+                  duration: Duration(seconds: 3),
+                  backgroundColor: Colors.orange,
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                )..show(context);
+                return; // مهم جدًا
+              }
+
+              setState(() {
+                isloaiding = true;
+              });
+
               try {
                 final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: Email.text,
@@ -99,27 +127,48 @@ class _LoginPageState extends State<LoginPage> {
                 if (credential.user!.emailVerified) {
                   Navigator.of(context).pushReplacementNamed("Home");
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("أذهب الى بريدك للتحقق حتى يتم تفعيل حسابك")),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: "أذهب الى بريدك للتحقق حتى يتم تفعيل حسابك",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
                 }
               } on FirebaseAuthException catch (e) {
+                setState(() {
+                  isloaiding = false;
+                });
                 if (e.code == 'user-not-found') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('No user found for that email.')),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: 'لا يوجد مستخدم بهذا البريد.',
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
                 } else if (e.code == 'wrong-password') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Wrong password provided for that user.")),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: "كلمة المرور غير صحيحة.",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
+                } else {
+                  Flushbar(
+                    title: "خطأ",
+                    message: "حدث خطأ غير متوقع: ${e.code}",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.red,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
                 }
               }
 
-              if (Email.text == "" || password.text == "") {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("يجب ملأ جميع الحقول")),
-                );
-              }
+              setState(() {
+                isloaiding = false;
+              });
             },
           ),
           Container(

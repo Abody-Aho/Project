@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,19 @@ class _StudyState extends State<Study> {
   User? user;
   final String allowedEmail = 'abdalwalysamer6@gmail.com';
   List<QueryDocumentSnapshot> data = [];
+
+  awsome(Title,Desc,DialogType,Cancel,Ok){
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType,
+      animType: AnimType.rightSlide,
+      title: Title,
+      desc: Desc,
+      btnCancelOnPress: Cancel,
+      btnOkOnPress: Ok,
+    ).show();
+  }
+
   getData() async{
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("StudyLisen").get();
     data.addAll(querySnapshot.docs);
@@ -48,9 +62,17 @@ class _StudyState extends State<Study> {
           : ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, i) {
-          return Card(
-            child: ListTile(
-              title: Text("أسم الدرس : ${data[i]["name"]}"),
+          return InkWell(
+            onLongPress: (){
+              (user != null && user!.email == allowedEmail) ? awsome("تحذير", "هل انت متاكد من عملية الحذف",DialogType.warning,() {},() async{
+                await FirebaseFirestore.instance.collection("StudyLisen").doc(data[i].id).delete();
+                Navigator.of(context).pushReplacementNamed("Home");
+              }) : null;
+            },
+            child: Card(
+              child: ListTile(
+                title: Text("أسم الدرس : ${data[i]["name"]}"),
+              ),
             ),
           );
         },

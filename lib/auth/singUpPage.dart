@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,17 @@ class _SingUpState extends State<SingUp> {
   TextEditingController Conformpassword = TextEditingController();
   String phoneNumber = "";
 
+  awsome(Title,Desc){
+    AwesomeDialog(
+        context: context,
+        dialogType: DialogType.info,
+        animType: AnimType.rightSlide,
+        title: Title,
+        desc: Desc,
+        btnCancelOnPress: () {},
+    btnOkOnPress: () {},
+    ).show();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,12 +157,12 @@ class _SingUpState extends State<SingUp> {
                   email: Email.text.trim(),
                   password: password.text.trim(),
                 );
-
+                await credential.user!.updateDisplayName(username.text.trim());
                 await FirebaseFirestore.instance
                     .collection('users')
                     .doc(credential.user!.uid)
                     .set({
-                  'username': username.text.trim(),
+                  'name': username.text.trim(),
                   'email': Email.text.trim(),
                   'phone': phoneNumber,
                 });
@@ -157,30 +170,52 @@ class _SingUpState extends State<SingUp> {
                 var user = FirebaseAuth.instance.currentUser;
                 if (user != null) {
                   await user.sendEmailVerification();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("تم إرسال رابط التحقق إلى: ${user.email}")),
-                  );
-                  Navigator.of(context).pushReplacementNamed("Login");
+                  Flushbar(
+                    title: "تم إرسال التحقق",
+                    message: "تم إرسال رابط التحقق إلى: ${user.email}",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context).then((_) {
+                    Navigator.of(context).pushReplacementNamed("Login");
+                  });
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("لم يتم تسجيل الدخول")),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: "لم يتم تسجيل الدخول",
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
                 }
-                Navigator.of(context).pushReplacementNamed("Home");
 
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('كلمة المرور ضعيفة جدًا')),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message:'كلمة المرور ضعيفة جدًا',
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
+
                 } else if (e.code == 'email-already-in-use') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('هذا البريد مستخدم مسبقًا')),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: 'هذا البريد مستخدم مسبقًا',
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orange,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('أملاء الحقول الفارغة')),
-                  );
+                  Flushbar(
+                    title: "خطأ",
+                    message: 'أملاء الحقول الفارغة',
+                    duration: Duration(seconds: 3),
+                    backgroundColor: Colors.orangeAccent,
+                    flushbarPosition: FlushbarPosition.BOTTOM,
+                  )..show(context);
+
                   print("${e.message}");
                 }
               } catch (e) {

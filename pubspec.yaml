@@ -46,6 +46,13 @@ dependencies:
   motion_tab_bar: ^2.0.4
   shared_preferences: ^2.2.3
   iconsax: ^0.0.8
+  another_flushbar: ^1.10.24
+  provider: ^6.1.1
+  image_picker: ^1.1.1
+  path_provider: ^2.1.2
+  permission_handler: ^10.4.0
+  awesome_dialog: ^3.2.1
+
 
 dev_dependencies:
   flutter_test:
