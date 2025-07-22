@@ -5,6 +5,7 @@ import 'package:flutterfire/screen/quran_page.dart';
 import 'package:flutterfire/screen/settings.dart';
 import 'package:flutterfire/screen/study.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire/shopping/shopping_page.dart';
 import 'package:motion_tab_bar/MotionBadgeWidget.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     //// use "MotionTabBarController" to replace with "TabController", if you need to programmatically change the tab
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
-      length: 4,
+      length: 5,
       vsync: this,
     );
   }
@@ -54,12 +55,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       bottomNavigationBar: MotionTabBar(
         controller: _motionTabBarController, // ADD THIS if you need to change your tab programmatically
         initialSelectedTab: "Home",
-        labels: const ["Home", "Prayers", "Quran", "Settings"],
+        labels: const ["Home", "Prayers", "Quran", "Settings", "Shopping"],
         icons: const [
           Icons.home,
           Icons.mosque, // Using a mosque icon for prayers
           Icons.book, // Using a book icon for Quran
-          Icons.settings
+          Icons.settings,
+          Icons.shopping_cart
         ],
 
         // optional badges, length must be same with labels
@@ -100,6 +102,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           const Center(
             child: Settings1(),
+          ),
+          const Center(
+            child: ShoppingPage(),
           ),
         ],
       ),

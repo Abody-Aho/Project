@@ -5,6 +5,7 @@ import 'package:flutterfire/addthings/addpage.dart';
 import 'package:flutterfire/auth/loginpage.dart';
 import 'package:flutterfire/auth/singUpPage.dart';
 import 'package:flutterfire/screen/home_page.dart';
+import 'package:flutterfire/shopping/shopping_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -74,6 +75,7 @@ class _HomePage2State extends State<HomePage2> {
         "Login": (context) => const LoginPage(),
         "Home": (context) => const HomePage(),
         "Add": (context) => const AddPage(),
+        "Shopping": (context) => const ShoppingPage(),
       },
     );
   }
